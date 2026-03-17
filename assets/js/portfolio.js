@@ -59,19 +59,23 @@ function initNav() {
     });
   }
 
-  // Active section highlight
+  // Active section highlight (homepage only — spy links carry .js-nav-spy)
   const sections = $$('section[id]');
-  const updateActive = () => {
-    const scrollY = window.scrollY + 100;
-    let current = '';
-    sections.forEach(sec => {
-      if (sec.offsetTop <= scrollY) current = sec.id;
-    });
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-    });
-  };
-  window.addEventListener('scroll', updateActive, { passive: true });
+  const spyLinks = $$('.js-nav-spy');
+  if (sections.length && spyLinks.length) {
+    const updateActive = () => {
+      const scrollY = window.scrollY + 100;
+      let current = '';
+      sections.forEach(sec => {
+        if (sec.offsetTop <= scrollY) current = sec.id;
+      });
+      spyLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        link.classList.toggle('active', href === `#${current}` || href === `/#${current}`);
+      });
+    };
+    window.addEventListener('scroll', updateActive, { passive: true });
+  }
 }
 
 /* ── Reveal on Scroll ─────────────────────────────────────── */

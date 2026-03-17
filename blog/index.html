@@ -1,0 +1,181 @@
+---
+layout: blog-list
+permalink: /blog/
+---
+
+{% assign p = site.data.profile %}
+{% assign all_posts = site.posts %}
+
+<!-- ── Blog hero ───────────────────────────────────────────── -->
+<section class="blog-hero">
+  <div class="blog-hero-inner">
+    <div class="section-label">Writing</div>
+    <h1 class="blog-hero-title">
+      Notes on <em>Science &amp; Ideas</em>
+    </h1>
+    <p class="blog-hero-subtitle">
+      Occasional long-form writing on research, methods, and things that interest me.
+    </p>
+    <div class="blog-stats">
+      <span>{{ all_posts.size }} post{% if all_posts.size != 1 %}s{% endif %}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tag filter ──────────────────────────────────────────── -->
+{% assign all_tags = "" | split: "" %}
+{% for post in all_posts %}
+  {% for tag in post.tags %}
+    {% unless all_tags contains tag %}
+      {% assign all_tags = all_tags | push: tag %}
+    {% endunless %}
+  {% endfor %}
+{% endfor %}
+
+{% if all_tags.size > 0 %}
+<div class="blog-tag-bar">
+  <div class="blog-tag-bar-inner">
+    <button class="filter-btn active" data-tag="all">All</button>
+    {% for tag in all_tags %}
+    <button class="filter-btn" data-tag="{{ tag | slugify }}">{{ tag }}</button>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- ── Post list ───────────────────────────────────────────── -->
+<section class="blog-list-section">
+  <div class="blog-list-inner">
+
+    {% if all_posts.size == 0 %}
+    <div class="blog-empty">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+      <p>No posts yet. The first one is coming soon.</p>
+    </div>
+    {% else %}
+
+    <!-- Featured / first post -->
+    {% assign featured_post = all_posts.first %}
+    {% assign words = featured_post.content | number_of_words %}
+    {% assign mins = words | divided_by: 200 %}
+    <article
+      class="post-card post-card--featured reveal"
+      data-tags="{% for t in featured_post.tags %}{{ t | slugify }} {% endfor %}"
+    >
+      <div class="post-card-featured-inner">
+        <div class="post-card-meta">
+          <time class="post-card-date" datetime="{{ featured_post.date | date_to_xmlschema }}">
+            {{ featured_post.date | date: "%B %-d, %Y" }}
+          </time>
+          <span class="post-card-sep">·</span>
+          <span class="post-card-reading-time">
+            {% if mins < 1 %}1{% else %}{{ mins }}{% endif %} min read
+          </span>
+        </div>
+        {% if featured_post.tags.size > 0 %}
+        <div class="post-card-tags">
+          {% for tag in featured_post.tags %}
+          <span class="post-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <h2 class="post-card-title post-card-title--featured">
+          <a href="{{ featured_post.url }}">{{ featured_post.title }}</a>
+        </h2>
+        {% if featured_post.subtitle %}
+        <p class="post-card-subtitle">{{ featured_post.subtitle }}</p>
+        {% endif %}
+        <p class="post-card-excerpt">{{ featured_post.excerpt | strip_html | truncatewords: 40 }}</p>
+        <a href="{{ featured_post.url }}" class="btn btn-primary post-card-cta">
+          Read Post
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Remaining posts grid -->
+    {% if all_posts.size > 1 %}
+    <div class="post-grid" id="post-grid">
+      {% for post in all_posts offset: 1 %}
+      {% assign words = post.content | number_of_words %}
+      {% assign mins = words | divided_by: 200 %}
+      <article
+        class="post-card reveal"
+        data-tags="{% for t in post.tags %}{{ t | slugify }} {% endfor %}"
+      >
+        <div class="post-card-inner">
+          <div class="post-card-meta">
+            <time class="post-card-date" datetime="{{ post.date | date_to_xmlschema }}">
+              {{ post.date | date: "%b %-d, %Y" }}
+            </time>
+            <span class="post-card-sep">·</span>
+            <span class="post-card-reading-time">
+              {% if mins < 1 %}1{% else %}{{ mins }}{% endif %} min read
+            </span>
+          </div>
+          {% if post.tags.size > 0 %}
+          <div class="post-card-tags">
+            {% for tag in post.tags %}
+            <span class="post-tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <h2 class="post-card-title">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </h2>
+          {% if post.subtitle %}
+          <p class="post-card-subtitle">{{ post.subtitle }}</p>
+          {% endif %}
+          <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 28 }}</p>
+          <a href="{{ post.url }}" class="post-card-read-more">
+            Read more
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  // Client-side tag filtering
+  (function () {
+    const filterBtns = document.querySelectorAll('.blog-tag-bar .filter-btn');
+    const cards      = document.querySelectorAll('.post-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tag = btn.dataset.tag;
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        cards.forEach(card => {
+          if (tag === 'all') {
+            card.style.display = '';
+          } else {
+            const cardTags = card.dataset.tags || '';
+            card.style.display = cardTags.includes(tag) ? '' : 'none';
+          }
+        });
+      });
+    });
+
+    // Handle ?tag= query param on page load
+    const params = new URLSearchParams(window.location.search);
+    const tagParam = params.get('tag');
+    if (tagParam) {
+      const matchBtn = [...filterBtns].find(b => b.dataset.tag === tagParam);
+      if (matchBtn) matchBtn.click();
+    }
+  }());
+</script>

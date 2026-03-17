@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page.title }} — {{ site.data.profile.name }}</title>
+  <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncatewords: 30 }}" />
+  <meta name="author" content="{{ site.data.profile.name }}" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:description" content="{{ page.excerpt | strip_html | strip_newlines | truncatewords: 30 }}" />
+  <meta property="og:type" content="article" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{{ '/assets/css/portfolio.css' | relative_url }}" />
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" />
+</head>
+<body>
+
+{% include portfolio-nav.html %}
+
+<!-- Reading progress bar -->
+<div class="read-progress" id="read-progress" aria-hidden="true"></div>
+
+<main class="post-page">
+  <div class="post-page-inner">
+
+    <!-- Back link -->
+    <a href="/blog/" class="post-back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      All Posts
+    </a>
+
+    <!-- Post header -->
+    <header class="post-header">
+      {% if page.tags and page.tags.size > 0 %}
+      <div class="post-header-tags">
+        {% for tag in page.tags %}
+        <a href="/blog/?tag={{ tag | slugify }}" class="post-tag">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <h1 class="post-headline">{{ page.title }}</h1>
+
+      {% if page.subtitle %}
+      <p class="post-subtitle">{{ page.subtitle }}</p>
+      {% endif %}
+
+      <div class="post-byline">
+        <span class="post-author">{{ site.data.profile.name }}</span>
+        <span class="post-byline-sep">·</span>
+        <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%B %-d, %Y" }}
+        </time>
+        <span class="post-byline-sep">·</span>
+        <span class="post-reading-time" id="reading-time">
+          {% assign words = content | number_of_words %}
+          {% assign mins = words | divided_by: 200 %}
+          {% if mins < 1 %}1{% else %}{{ mins }}{% endif %} min read
+        </span>
+      </div>
+    </header>
+
+    <!-- Post body -->
+    <article class="post-body" id="post-body">
+      {{ content }}
+    </article>
+
+    <!-- Post footer -->
+    <footer class="post-footer">
+      {% if page.tags and page.tags.size > 0 %}
+      <div class="post-footer-tags">
+        <span class="post-footer-tags-label">Tagged in</span>
+        {% for tag in page.tags %}
+        <a href="/blog/?tag={{ tag | slugify }}" class="post-tag">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="post-nav">
+        {% if page.previous %}
+        <a href="{{ page.previous.url }}" class="post-nav-item post-nav-prev">
+          <span class="post-nav-dir">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            Previous
+          </span>
+          <span class="post-nav-title">{{ page.previous.title }}</span>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+
+        {% if page.next %}
+        <a href="{{ page.next.url }}" class="post-nav-item post-nav-next">
+          <span class="post-nav-dir">
+            Next
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </span>
+          <span class="post-nav-title">{{ page.next.title }}</span>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+      </div>
+
+      <div class="post-back-to-blog">
+        <a href="/blog/" class="btn btn-outline">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          Back to Blog
+        </a>
+      </div>
+    </footer>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-text">
+      &copy; {{ 'now' | date: "%Y" }} {{ site.data.profile.name }}.
+      Built with Jekyll &amp; crafted with care.
+    </p>
+    <div class="footer-links">
+      <a href="/" class="footer-link">Home</a>
+      <a href="/blog/" class="footer-link">Blog</a>
+      <a href="/#contact" class="footer-link">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="{{ '/assets/js/portfolio.js' | relative_url }}"></script>
+<script>
+  // Reading progress bar
+  (function () {
+    const bar  = document.getElementById('read-progress');
+    const body = document.getElementById('post-body');
+    if (!bar || !body) return;
+    const update = () => {
+      const rect   = body.getBoundingClientRect();
+      const total  = body.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const pct = Math.min(Math.max(scrolled / total, 0), 1);
+      bar.style.transform = `scaleX(${pct})`;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }());
+
+  // Tag filter (blog listing page uses query param; this highlights active tag on post page)
+</script>
+</body>
+</html>

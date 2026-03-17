@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — {{ site.data.profile.name }}</title>
+  <meta name="description" content="Writing by {{ site.data.profile.name }} on research, science, and ideas." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{{ '/assets/css/portfolio.css' | relative_url }}" />
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" />
+</head>
+<body>
+
+{% include portfolio-nav.html %}
+
+{{ content }}
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-text">
+      &copy; {{ 'now' | date: "%Y" }} {{ site.data.profile.name }}.
+      Built with Jekyll &amp; crafted with care.
+    </p>
+    <div class="footer-links">
+      <a href="{{ '/' | relative_url }}" class="footer-link">Home</a>
+      <a href="{{ '/#contact' | relative_url }}" class="footer-link">Contact</a>
+      <a href="{{ site.data.profile.cv_url | relative_url }}" class="footer-link">CV</a>
+    </div>
+  </div>
+</footer>
+
+<script src="{{ '/assets/js/portfolio.js' | relative_url }}"></script>
+</body>
+</html>
