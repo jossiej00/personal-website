@@ -4,30 +4,7 @@ layout: main
 
 {% assign p = site.data.profile %}
 
-<!-- ── Navigation ──────────────────────────────────────────── -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <a href="#hero" class="nav-brand">{{ p.name | split: " " | first }}</a>
-
-  <button class="nav-mobile-toggle" aria-label="Toggle navigation" aria-expanded="false">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
-  <div class="nav-links" id="nav-links">
-    <a class="nav-link" href="#about">About</a>
-    <a class="nav-link" href="#research">Research</a>
-    <a class="nav-link" href="#cv">CV</a>
-    <a class="nav-link" href="#contact">Contact</a>
-    <a class="nav-cta btn"
-       href="#"
-       data-action="preview-cv"
-       data-cv-url="{{ p.cv_url | relative_url }}"
-       data-cv-updated="{{ p.cv_updated }}">
-      View CV
-    </a>
-  </div>
-</nav>
+{% include portfolio-nav.html %}
 
 <!-- ── Hero ────────────────────────────────────────────────── -->
 <section id="hero" class="hero">

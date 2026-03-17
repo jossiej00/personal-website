@@ -1,0 +1,39 @@
+{% assign p = site.profile %}
+{% if page.url == '/' %}{% assign home = '' %}{% else %}{% assign home = '/' %}{% endif %}
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="{{ home }}#hero" class="nav-brand">{{ p.name | split: " " | first }}</a>
+
+  <button class="nav-mobile-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="nav-links" id="nav-links">
+    <a class="nav-link{% if page.url == '/' %} js-nav-spy{% endif %}"
+       href="{{ home }}#about"
+       {% unless page.url == '/' %}data-active-path="false"{% endunless %}>About</a>
+    <a class="nav-link{% if page.url == '/' %} js-nav-spy{% endif %}"
+       href="{{ home }}#research">Research</a>
+    <a class="nav-link{% if page.url == '/' %} js-nav-spy{% endif %}"
+       href="{{ home }}#cv">CV</a>
+    <a class="nav-link{% unless page.url == '/' %}{% if page.url contains '/blog' %} active{% endif %}{% endunless %}{% if page.url == '/' %} js-nav-spy{% endif %}"
+       href="/blog/">Blog</a>
+    <a class="nav-link{% if page.url == '/' %} js-nav-spy{% endif %}"
+       href="{{ home }}#contact">Contact</a>
+    {% if page.url == '/' %}
+    <a class="nav-cta btn"
+       href="#"
+       data-action="preview-cv"
+       data-cv-url="{{ p.cv_url | relative_url }}"
+       data-cv-updated="{{ p.cv_updated }}">
+      View CV
+    </a>
+    {% else %}
+    <a class="nav-cta btn" href="{{ p.cv_url | relative_url }}" target="_blank" rel="noopener">
+      View CV
+    </a>
+    {% endif %}
+  </div>
+</nav>

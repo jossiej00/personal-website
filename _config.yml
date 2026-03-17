@@ -2,6 +2,11 @@
 #  Personal Website Configuration
 #  Edit _data/profile.yml  → personal info, social links, CV
 #  Edit _data/research.yml → publications & preprints
+#
+#  Blog:
+#   - Published posts: _posts/YYYY-MM-DD-title.md
+#   - Draft posts:     _drafts/YYYY-MM-DD-title.md
+#     (drafts are NOT rendered; preview locally with: jekyll serve --drafts)
 # ============================================================
 
 title: Personal Website
@@ -13,16 +18,20 @@ baseurl: "/personal-website"
 plugins:
   - jekyll-seo-tag
 
-permalink: /:year/:month/:day/:title/
+# Blog post URLs: /blog/post-title/
+permalink: /blog/:slug/
 
+# ── Default layouts ──────────────────────────────────────────
 defaults:
   - scope:
       path: ""
       type: "posts"
     values:
-      layout: "post"
+      layout: "blog-post"
 
 # ── Build settings ──────────────────────────────────────────
+# Drafts in _drafts/ are excluded by default.
+# To preview drafts locally: bundle exec jekyll serve --drafts
 exclude:
   - Gemfile
   - Gemfile.lock
