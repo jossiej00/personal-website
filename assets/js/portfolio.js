@@ -283,6 +283,14 @@ function initCVModal() {
     }
   });
 
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-action="preview-slides"]');
+    if (btn) {
+      e.preventDefault();
+      openCVModal(btn.dataset.slidesUrl, '');
+    }
+  });
+
   closeBtn.addEventListener('click', closeCVModal);
   backdrop.addEventListener('click', closeCVModal);
   document.addEventListener('keydown', e => {
@@ -362,6 +370,23 @@ function getIcon(name) {
   return icons[name] || '';
 }
 
+/* ── BibTeX Export ────────────────────────────────────────── */
+function initBibtexExport() {
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-action="export-bibtex"]');
+    if (!btn) return;
+    const bibtex = btn.dataset.bibtex;
+    const id     = btn.dataset.id || 'reference';
+    const blob   = new Blob([bibtex], { type: 'text/plain' });
+    const url    = URL.createObjectURL(blob);
+    const a      = document.createElement('a');
+    a.href       = url;
+    a.download   = `${id}.bib`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
 /* ── Init ─────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
@@ -372,4 +397,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initInlineCVFrame();
   initSmoothScroll();
   initCounters();
+  initBibtexExport();
 });

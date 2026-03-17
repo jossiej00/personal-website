@@ -247,6 +247,20 @@ layout: main
             Code
           </a>
           {% endif %}
+          {% if paper.slides_url %}
+          <button class="btn btn-ghost btn-sm" data-action="preview-slides" data-slides-url="{{ paper.slides_url | relative_url }}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/>
+            </svg>
+            Slides
+          </button>
+          {% endif %}
+          <button class="btn btn-ghost btn-sm" data-action="export-bibtex" data-id="{{ paper.id }}" data-bibtex="{{ paper.bibtex | escape }}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            BibTeX
+          </button>
         </div>
       </article>
       {% endfor %}
