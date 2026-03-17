@@ -19,7 +19,7 @@
     <a class="nav-link{% if page.url == '/' %} js-nav-spy{% endif %}"
        href="{{ home }}#cv">CV</a>
     <a class="nav-link{% unless page.url == '/' %}{% if page.url contains '/blog' %} active{% endif %}{% endunless %}{% if page.url == '/' %} js-nav-spy{% endif %}"
-       href="/blog/">Blog</a>
+       href="{{ site.baseurl }}/blog/">Blog</a>
     <a class="nav-link{% if page.url == '/' %} js-nav-spy{% endif %}"
        href="{{ home }}#contact">Contact</a>
     {% if page.url == '/' %}
