@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog — {{ site.profile.name }}</title>
-  <meta name="description" content="Writing by {{ site.profile.name }} on research, science, and ideas." />
+  <title>Blog — {{ site.data.profile.name }}</title>
+  <meta name="description" content="Writing by {{ site.data.profile.name }} on research, science, and ideas." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,13 +22,13 @@
 <footer class="footer">
   <div class="footer-inner">
     <p class="footer-text">
-      &copy; {{ 'now' | date: "%Y" }} {{ site.profile.name }}.
+      &copy; {{ 'now' | date: "%Y" }} {{ site.data.profile.name }}.
       Built with Jekyll &amp; crafted with care.
     </p>
     <div class="footer-links">
-      <a href="/" class="footer-link">Home</a>
-      <a href="/#contact" class="footer-link">Contact</a>
-      <a href="{{ site.profile.cv_url | relative_url }}" class="footer-link">CV</a>
+      <a href="{{ '/' | relative_url }}" class="footer-link">Home</a>
+      <a href="{{ '/#contact' | relative_url }}" class="footer-link">Contact</a>
+      <a href="{{ site.data.profile.cv_url | relative_url }}" class="footer-link">CV</a>
     </div>
   </div>
 </footer>

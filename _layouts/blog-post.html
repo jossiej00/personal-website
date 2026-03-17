@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.title }} — {{ site.profile.name }}</title>
+  <title>{{ page.title }} — {{ site.data.profile.name }}</title>
   <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncatewords: 30 }}" />
-  <meta name="author" content="{{ site.profile.name }}" />
+  <meta name="author" content="{{ site.data.profile.name }}" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="{{ page.title }}" />
@@ -54,7 +54,7 @@
       {% endif %}
 
       <div class="post-byline">
-        <span class="post-author">{{ site.profile.name }}</span>
+        <span class="post-author">{{ site.data.profile.name }}</span>
         <span class="post-byline-sep">·</span>
         <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
           {{ page.date | date: "%B %-d, %Y" }}
@@ -130,7 +130,7 @@
 <footer class="footer">
   <div class="footer-inner">
     <p class="footer-text">
-      &copy; {{ 'now' | date: "%Y" }} {{ site.profile.name }}.
+      &copy; {{ 'now' | date: "%Y" }} {{ site.data.profile.name }}.
       Built with Jekyll &amp; crafted with care.
     </p>
     <div class="footer-links">
