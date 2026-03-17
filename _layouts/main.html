@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ site.data.profile.name }} — {{ site.data.profile.title }}</title>
+  <meta name="description" content="{{ site.data.profile.bio_short | strip_newlines | strip }}" />
+  <meta name="author" content="{{ site.data.profile.name }}" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ site.data.profile.name }}" />
+  <meta property="og:description" content="{{ site.data.profile.bio_short | strip_newlines | strip }}" />
+  <meta property="og:type" content="website" />
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Portfolio styles -->
+  <link rel="stylesheet" href="{{ '/assets/css/portfolio.css' | relative_url }}" />
+
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" />
+</head>
+<body>
+  {{ content }}
+
+  <!-- PDF Preview Modal -->
+  <div id="pdf-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-meta">
+          <span id="modal-venue" class="modal-venue"></span>
+          <span id="modal-year" class="modal-year"></span>
+        </div>
+        <button class="modal-close" id="modal-close" aria-label="Close preview">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-info" id="modal-info">
+          <h2 id="modal-title" class="modal-title"></h2>
+          <p id="modal-authors" class="modal-authors"></p>
+          <div id="modal-tags" class="modal-tags"></div>
+          <p id="modal-abstract" class="modal-abstract"></p>
+          <div id="modal-links" class="modal-links"></div>
+        </div>
+        <div class="modal-viewer" id="modal-viewer">
+          <div class="viewer-loading" id="viewer-loading">
+            <div class="loading-spinner"></div>
+            <p>Loading document…</p>
+          </div>
+          <iframe id="pdf-iframe" title="PDF Preview" frameborder="0"></iframe>
+          <div class="viewer-unavailable" id="viewer-unavailable" style="display:none;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="9" y1="13" x2="15" y2="13"></line>
+              <line x1="9" y1="17" x2="15" y2="17"></line>
+            </svg>
+            <p>PDF not yet available.</p>
+            <p class="unavailable-hint">Add your PDF to <code>assets/pdfs/</code> and update the path in <code>_data/research.yml</code>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CV Modal -->
+  <div id="cv-modal" class="modal cv-modal" role="dialog" aria-modal="true" aria-label="CV Preview">
+    <div class="modal-backdrop" id="cv-modal-backdrop"></div>
+    <div class="modal-container cv-modal-container">
+      <div class="modal-header">
+        <div class="modal-meta">
+          <span class="modal-venue">Curriculum Vitae</span>
+          <span id="cv-updated" class="modal-year"></span>
+        </div>
+        <div class="cv-header-actions">
+          <a id="cv-download-btn" href="#" download class="btn btn-ghost btn-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download
+          </a>
+          <button class="modal-close" id="cv-modal-close" aria-label="Close CV preview">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="cv-viewer-wrap">
+        <div class="viewer-loading" id="cv-viewer-loading">
+          <div class="loading-spinner"></div>
+          <p>Loading CV…</p>
+        </div>
+        <iframe id="cv-iframe" title="CV Preview" frameborder="0"></iframe>
+        <div class="viewer-unavailable" id="cv-viewer-unavailable" style="display:none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <p>CV not yet uploaded.</p>
+          <p class="unavailable-hint">Add your CV PDF to <code>assets/pdfs/cv.pdf</code> to enable preview.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ '/assets/js/portfolio.js' | relative_url }}"></script>
+</body>
+</html>

@@ -1,3 +1,475 @@
 ---
-layout: home
+layout: main
 ---
+
+{% assign p = site.data.profile %}
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-brand">{{ p.name | split: " " | first }}</a>
+
+  <button class="nav-mobile-toggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="nav-links" id="nav-links">
+    <a class="nav-link" href="#about">About</a>
+    <a class="nav-link" href="#research">Research</a>
+    <a class="nav-link" href="#cv">CV</a>
+    <a class="nav-link" href="#contact">Contact</a>
+    <a class="nav-cta btn"
+       href="#"
+       data-action="preview-cv"
+       data-cv-url="{{ p.cv_url | relative_url }}"
+       data-cv-updated="{{ p.cv_updated }}">
+      View CV
+    </a>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────── -->
+<section id="hero" class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        {{ p.institution }}
+      </div>
+
+      <h1 class="hero-name">
+        {{ p.name | split: " " | first }}<br>
+        <em>{{ p.name | split: " " | last }}</em>
+      </h1>
+
+      <p class="hero-title">{{ p.title }}</p>
+
+      <p class="hero-tagline">{{ p.tagline }}</p>
+
+      <div class="hero-actions">
+        <a href="#research" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          View Research
+        </a>
+        <a href="#"
+           class="btn btn-outline"
+           data-action="preview-cv"
+           data-cv-url="{{ p.cv_url | relative_url }}"
+           data-cv-updated="{{ p.cv_updated }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          Preview CV
+        </a>
+        <a href="mailto:{{ p.email }}" class="btn btn-ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Get in Touch
+        </a>
+      </div>
+
+      <div class="hero-social">
+        {% if p.social.google_scholar %}
+        <a href="{{ p.social.google_scholar }}" class="hero-social-link" target="_blank" rel="noopener" title="Google Scholar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/>
+          </svg>
+          Scholar
+        </a>
+        {% endif %}
+        {% if p.social.orcid %}
+        <a href="{{ p.social.orcid }}" class="hero-social-link" target="_blank" rel="noopener" title="ORCID">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm-1.507 4.82a1.143 1.143 0 1 1 0 2.287 1.143 1.143 0 0 1 0-2.287zm-1.056 3.855h2.113v10.714H9.437V8.675zm3.568 0h3.699c3.524 0 5.318 2.474 5.318 5.357 0 2.9-1.794 5.357-5.318 5.357h-3.699V8.675zm2.113 1.793v7.14h1.586c2.12 0 3.18-1.512 3.18-3.57 0-2.058-1.06-3.57-3.18-3.57h-1.586z"/>
+          </svg>
+          ORCID
+        </a>
+        {% endif %}
+        {% if p.social.github %}
+        <a href="{{ p.social.github }}" class="hero-social-link" target="_blank" rel="noopener" title="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+          GitHub
+        </a>
+        {% endif %}
+        {% if p.social.linkedin %}
+        <a href="{{ p.social.linkedin }}" class="hero-social-link" target="_blank" rel="noopener" title="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          LinkedIn
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="hero-avatar-wrap">
+      <img
+        src="{{ p.avatar | relative_url }}"
+        alt="Portrait of {{ p.name }}"
+        class="hero-avatar"
+        onerror="this.outerHTML='<div class=\'hero-avatar-placeholder\'><svg width=\'64\' height=\'64\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><path d=\'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\'/><circle cx=\'12\' cy=\'7\' r=\'4\'/></svg><span>Add photo to<br><code>assets/images/avatar.jpg</code></span></div>'"
+      />
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span class="scroll-line"></span>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ── About ───────────────────────────────────────────────── -->
+<section id="about" class="section about-section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label">About</div>
+      <h2 class="section-title">The Story <em>So Far</em></h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="reveal reveal-delay-1">
+        <div class="about-bio">
+          <p>{{ p.bio }}</p>
+        </div>
+
+        <div class="about-interests">
+          <div class="about-interests-title">Research Interests</div>
+          <div class="interests-list">
+            <span class="interest-tag">Machine Learning</span>
+            <span class="interest-tag">Large language Models</span>
+            <span class="interest-tag">Informaiton Theory</span>
+            <span class="interest-tag">Coding Theory</span>
+            <span class="interest-tag">Distributed Computing</span>
+            <span class="interest-tag">Gradient Code</span>
+            <span class="interest-tag">Quantization for Matrix Multiplication</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="about-stats">
+          {% for stat in p.stats %}
+          <div class="stat-card">
+            <div class="stat-value" data-count="{{ stat.value }}">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Research ────────────────────────────────────────────── -->
+<section id="research" class="section research-section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Publications</div>
+      <h2 class="section-title">Selected <em>Research</em></h2>
+      <p class="section-subtitle">
+        Peer-reviewed publications and preprints. Click any paper to preview
+        or read the full text without leaving this page.
+      </p>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="research-filter reveal reveal-delay-1">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="published">Published</button>
+      <button class="filter-btn" data-filter="preprint">Preprints</button>
+      <button class="filter-btn" data-filter="Deep Learning">Deep Learning</button>
+      <button class="filter-btn" data-filter="Genomics">Genomics</button>
+    </div>
+
+    <!-- Papers grid -->
+<div class="papers-grid">
+      {% for paper in site.data.research %}
+      <article
+        class="paper-card reveal{% if paper.featured %} featured{% endif %}"
+        data-tags="{{ paper.tags | join: ',' }}"
+        data-status="{{ paper.status }}"
+      >
+        <div class="paper-card-meta">
+          <span class="paper-venue">{{ paper.venue }}</span>
+          <span class="paper-year">{{ paper.year }}</span>
+          <span class="paper-status {{ paper.status }}">{{ paper.status }}</span>
+        </div>
+
+        <h3 class="paper-title">{{ paper.title }}</h3>
+
+        <p class="paper-authors">
+          {% assign name_parts = p.name | split: " " %}
+          {% assign last_name = name_parts | last %}
+          {% assign author_parts = paper.authors | split: ", " %}
+          {% for author in author_parts %}
+            {% assign trimmed = author | strip %}
+            {% if trimmed contains last_name %}
+              <strong class="author-highlight">{{ trimmed }}</strong>{% unless forloop.last %},{% endunless %}
+            {% else %}
+              {{ trimmed }}{% unless forloop.last %},{% endunless %}
+            {% endif %}
+          {% endfor %}
+        </p>
+
+        <p class="paper-abstract">{{ paper.abstract | strip_newlines | truncatewords: 48 }}</p>
+
+        <div class="paper-tags">
+          {% for tag in paper.tags %}
+          <span class="paper-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="paper-actions">
+          <button
+            class="btn btn-primary btn-sm"
+            data-action="preview-paper"
+            data-title="{{ paper.title }}"
+            data-venue="{{ paper.venue }}"
+            data-year="{{ paper.year }}"
+            data-authors="{{ paper.authors }}"
+            data-abstract="{{ paper.abstract | strip_newlines }}"
+            data-tags="{{ paper.tags | join: ',' }}"
+            data-pdf="{{ paper.pdf_url | relative_url }}"
+            data-doi="{{ paper.doi }}"
+            data-arxiv="{{ paper.arxiv }}"
+            data-code="{{ paper.code }}"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            Preview
+          </button>
+          {% if paper.arxiv %}
+          <a href="{{ paper.arxiv }}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            arXiv
+          </a>
+          {% endif %}
+          {% if paper.doi %}
+          <a href="{{ paper.doi }}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">DOI</a>
+          {% endif %}
+          {% if paper.code %}
+          <a href="{{ paper.code }}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+            Code
+          </a>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CV ──────────────────────────────────────────────────── -->
+<section id="cv" class="section cv-section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Curriculum Vitae</div>
+      <h2 class="section-title">Academic <em>Profile</em></h2>
+      <p class="section-subtitle">
+        Browse my full CV below — no download required.
+      </p>
+    </div>
+
+    <div class="cv-layout">
+      <!-- Sidebar -->
+      <div class="cv-sidebar reveal reveal-delay-1">
+        <div class="cv-info-card">
+          <h3 class="cv-info-title">{{ p.name }}</h3>
+          <p class="cv-info-updated">Last updated: {{ p.cv_updated }}</p>
+          <div class="cv-actions">
+            <button
+              class="btn btn-primary"
+              data-action="preview-cv"
+              data-cv-url="{{ p.cv_url | relative_url }}"
+              data-cv-updated="{{ p.cv_updated }}"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              Open Full Preview
+            </button>
+            <a href="{{ p.cv_url | relative_url }}" download class="btn btn-outline">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inline frame -->
+      <div class="cv-preview-frame reveal reveal-delay-2">
+        <div class="cv-frame-header">
+          <div class="cv-frame-dots">
+            <div class="cv-frame-dot" style="background:#ff5f57"></div>
+            <div class="cv-frame-dot" style="background:#febc2e"></div>
+            <div class="cv-frame-dot" style="background:#28c840"></div>
+          </div>
+          <span class="cv-frame-title">cv.pdf</span>
+        </div>
+        <div style="position:relative; min-height:700px;">
+          <div class="viewer-loading" id="cv-inline-loading">
+            <div class="loading-spinner"></div>
+            <p>Loading CV&hellip;</p>
+          </div>
+          <div class="cv-placeholder" id="cv-inline-unavailable" style="display:none;">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+            <p>CV not yet uploaded.</p>
+            <p>Place your CV at <code>assets/pdfs/cv.pdf</code> and update <code>cv_url</code> in <code>_data/profile.yml</code>.</p>
+          </div>
+          <embed
+            id="cv-inline-iframe"
+            data-src="{{ p.cv_url | relative_url }}"
+            type="application/pdf"
+            style="width:100%; height:700px; border:none; display:block;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ─────────────────────────────────────────────── -->
+<section id="contact" class="section contact-section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Let's <em>Connect</em></h2>
+      <p class="section-subtitle">
+        Open to collaborations, questions about my work, and coffee chats.
+        Always happy to hear from fellow researchers.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="reveal reveal-delay-1">
+        <div class="contact-info-list">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:2px;">Email</div>
+              <a href="mailto:{{ p.email }}">{{ p.email }}</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:2px;">Location</div>
+              <span>{{ p.location }}</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <div>
+              <div style="font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-bottom:2px;">Affiliation</div>
+              <span>{{ p.institution }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="contact-social-grid">
+          {% if p.social.google_scholar %}
+          <a href="{{ p.social.google_scholar }}" target="_blank" rel="noopener" class="contact-social-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/>
+            </svg>
+            Google Scholar
+          </a>
+          {% endif %}
+          {% if p.social.orcid %}
+          <a href="{{ p.social.orcid }}" target="_blank" rel="noopener" class="contact-social-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm-1.507 4.82a1.143 1.143 0 1 1 0 2.287 1.143 1.143 0 0 1 0-2.287zm-1.056 3.855h2.113v10.714H9.437V8.675zm3.568 0h3.699c3.524 0 5.318 2.474 5.318 5.357 0 2.9-1.794 5.357-5.318 5.357h-3.699V8.675zm2.113 1.793v7.14h1.586c2.12 0 3.18-1.512 3.18-3.57 0-2.058-1.06-3.57-3.18-3.57h-1.586z"/>
+            </svg>
+            ORCID
+          </a>
+          {% endif %}
+          {% if p.social.linkedin %}
+          <a href="{{ p.social.linkedin }}" target="_blank" rel="noopener" class="contact-social-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+          {% endif %}
+          {% if p.social.github %}
+          <a href="{{ p.social.github }}" target="_blank" rel="noopener" class="contact-social-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+            GitHub
+          </a>
+          {% endif %}
+          {% if p.social.twitter %}
+          <a href="{{ p.social.twitter }}" target="_blank" rel="noopener" class="contact-social-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            X / Twitter
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-text">
+      &copy; {{ 'now' | date: "%Y" }} {{ p.name }}.
+      Built with Jekyll &amp; crafted with care.
+    </p>
+    <div class="footer-links">
+      <a href="#hero" class="footer-link">Back to top</a>
+      <a href="mailto:{{ p.email }}" class="footer-link">Contact</a>
+      <a href="{{ p.cv_url | relative_url }}" class="footer-link">CV</a>
+    </div>
+  </div>
+</footer>
