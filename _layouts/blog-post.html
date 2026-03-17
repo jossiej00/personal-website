@@ -30,7 +30,7 @@
   <div class="post-page-inner">
 
     <!-- Back link -->
-    <a href="/blog/" class="post-back-link">
+    <a href="{{ site.baseurl }}/blog/" class="post-back-link">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="15 18 9 12 15 6"/>
       </svg>
@@ -42,7 +42,7 @@
       {% if page.tags and page.tags.size > 0 %}
       <div class="post-header-tags">
         {% for tag in page.tags %}
-        <a href="/blog/?tag={{ tag | slugify }}" class="post-tag">{{ tag }}</a>
+        <a href="{{ site.baseurl }}/blog/?tag={{ tag | slugify }}" class="post-tag">{{ tag }}</a>
         {% endfor %}
       </div>
       {% endif %}
@@ -79,7 +79,7 @@
       <div class="post-footer-tags">
         <span class="post-footer-tags-label">Tagged in</span>
         {% for tag in page.tags %}
-        <a href="/blog/?tag={{ tag | slugify }}" class="post-tag">{{ tag }}</a>
+        <a href="{{ site.baseurl }}/blog/?tag={{ tag | slugify }}" class="post-tag">{{ tag }}</a>
         {% endfor %}
       </div>
       {% endif %}
@@ -115,7 +115,7 @@
       </div>
 
       <div class="post-back-to-blog">
-        <a href="/blog/" class="btn btn-outline">
+        <a href="{{ site.baseurl }}/blog/" class="btn btn-outline">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
@@ -134,9 +134,9 @@
       Built with Jekyll &amp; crafted with care.
     </p>
     <div class="footer-links">
-      <a href="/" class="footer-link">Home</a>
-      <a href="/blog/" class="footer-link">Blog</a>
-      <a href="/#contact" class="footer-link">Contact</a>
+      <a href="{{ site.baseurl }}/" class="footer-link">Home</a>
+      <a href="{{ site.baseurl }}/blog/" class="footer-link">Blog</a>
+      <a href="{{ site.baseurl }}/#contact" class="footer-link">Contact</a>
     </div>
   </div>
 </footer>

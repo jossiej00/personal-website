@@ -1,5 +1,5 @@
 {% assign p = site.data.profile %}
-{% if page.url == '/' %}{% assign home = '' %}{% else %}{% assign home = '/' %}{% endif %}
+{% if page.url == '/' %}{% assign home = '' %}{% else %}{% assign home = site.baseurl | append: '/' %}{% endif %}
 
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <a href="{{ home }}#hero" class="nav-brand">{{ p.name | split: " " | first }}</a>
