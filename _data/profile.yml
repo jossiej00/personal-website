@@ -1,0 +1,38 @@
+name: "Your Name"
+title: "PhD Researcher · Computational Biology"
+tagline: "Exploring the intersection of machine learning and genomics to decode life's blueprint."
+institution: "Department of Computational Biology, University Name"
+location: "Cambridge, MA"
+email: "yourname@university.edu"
+avatar: "/assets/images/avatar.jpg"
+
+bio: >
+  I am a PhD researcher at the intersection of machine learning and genomics.
+  My work focuses on developing scalable computational methods to understand
+  gene regulatory networks and their role in complex diseases. Previously, I
+  completed my BSc in Bioinformatics at [Undergraduate University] and worked
+  as a research intern at [Institute/Company].
+
+bio_short: >
+  PhD researcher building ML methods for genomics. Passionate about open science,
+  elegant code, and turning biological complexity into tractable problems.
+
+social:
+  google_scholar: "https://scholar.google.com/citations?user=YOURID"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+  linkedin: "https://linkedin.com/in/yourhandle"
+  twitter: "https://twitter.com/yourhandle"
+  github: "https://github.com/yourhandle"
+
+cv_url: "/assets/pdfs/cv.pdf"
+cv_updated: "January 2025"
+
+stats:
+  - label: "Publications"
+    value: "8"
+  - label: "Citations"
+    value: "142"
+  - label: "h-index"
+    value: "5"
+  - label: "Years Active"
+    value: "4"

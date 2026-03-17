@@ -1,0 +1,97 @@
+- id: paper-2024-1
+  title: "Scalable Attention Mechanisms for Single-Cell RNA Sequencing Analysis"
+  authors: "Your Name, Co-Author A, Co-Author B, Supervisor Name"
+  venue: "Nature Methods"
+  year: 2024
+  volume: "21"
+  pages: "1234–1245"
+  abstract: >
+    Single-cell RNA sequencing (scRNA-seq) has revolutionized our understanding of cellular
+    heterogeneity. However, existing computational methods struggle to scale to atlas-scale
+    datasets comprising millions of cells. Here, we present ScaleFormer, a transformer-based
+    architecture with linear-complexity attention that enables end-to-end analysis of
+    10M+ cells. We demonstrate state-of-the-art performance on cell type annotation,
+    trajectory inference, and gene regulatory network reconstruction across 12 benchmark datasets.
+  tags:
+    - "Deep Learning"
+    - "Single-Cell Genomics"
+    - "Transformers"
+  pdf_url: "/assets/pdfs/paper-2024-scaleformer.pdf"
+  doi: "https://doi.org/10.1038/s41592-024-XXXXX"
+  arxiv: "https://arxiv.org/abs/2401.00000"
+  code: "https://github.com/yourhandle/scaleformer"
+  featured: true
+  status: "published"
+
+- id: paper-2024-2
+  title: "Causal Inference in Gene Regulatory Networks via Instrumental Variables"
+  authors: "Your Name, Co-Author C, Supervisor Name"
+  venue: "Cell Systems"
+  year: 2024
+  volume: "15"
+  pages: "567–582"
+  abstract: >
+    Disentangling causation from correlation in gene regulatory networks (GRNs) remains
+    a fundamental challenge in systems biology. We introduce CausalGRN, a framework
+    combining CRISPR perturbation data with instrumental variable (IV) estimation to
+    infer causal regulatory interactions. Applied to K562 cells with 10,000+ gene
+    perturbations from the Replogle et al. dataset, CausalGRN recovers 83% of
+    experimentally validated TF–target relationships and predicts novel regulators
+    confirmed by independent ChIP-seq data.
+  tags:
+    - "Causal Inference"
+    - "Gene Networks"
+    - "CRISPR"
+  pdf_url: "/assets/pdfs/paper-2024-causalgrn.pdf"
+  doi: "https://doi.org/10.1016/j.cels.2024.XXXXX"
+  arxiv: "https://arxiv.org/abs/2402.00000"
+  code: "https://github.com/yourhandle/causalgrn"
+  featured: true
+  status: "published"
+
+- id: paper-2023-1
+  title: "Multi-Modal Integration of Spatial Transcriptomics and Chromatin Accessibility"
+  authors: "Co-Author D, Your Name, Co-Author E, Supervisor Name"
+  venue: "Genome Biology"
+  year: 2023
+  volume: "24"
+  pages: "Article 89"
+  abstract: >
+    Spatial transcriptomics reveals the spatial organization of gene expression within
+    tissues, while ATAC-seq maps chromatin accessibility at single-cell resolution.
+    Integrating these modalities provides a more complete picture of gene regulation
+    in spatial context. We present SpatioChrom, a variational autoencoder-based method
+    for joint embedding of spatial gene expression and chromatin accessibility profiles,
+    enabling spatially-aware regulatory inference.
+  tags:
+    - "Spatial Transcriptomics"
+    - "Multimodal Learning"
+    - "VAE"
+  pdf_url: "/assets/pdfs/paper-2023-spatiochrom.pdf"
+  doi: "https://doi.org/10.1186/s13059-023-XXXXX"
+  arxiv: "https://arxiv.org/abs/2305.00000"
+  code: "https://github.com/yourhandle/spatiochrom"
+  featured: false
+  status: "published"
+
+- id: preprint-2024-1
+  title: "Foundation Models for Genomics: A Critical Survey and Benchmark"
+  authors: "Your Name, Co-Author F, Co-Author G"
+  venue: "arXiv preprint"
+  year: 2024
+  abstract: >
+    Large language models (LLMs) pre-trained on DNA sequences have shown impressive
+    performance across genomic tasks. However, systematic evaluation frameworks are
+    lacking. We introduce GenomeBench, a comprehensive benchmark covering 24 tasks
+    across sequence annotation, regulatory prediction, and evolutionary analysis.
+    We evaluate 8 prominent genomic foundation models and provide guidelines for
+    task-specific model selection.
+  tags:
+    - "Foundation Models"
+    - "Genomics"
+    - "Benchmark"
+  pdf_url: "/assets/pdfs/preprint-2024-genomebench.pdf"
+  arxiv: "https://arxiv.org/abs/2406.00000"
+  code: "https://github.com/yourhandle/genomebench"
+  featured: true
+  status: "preprint"
