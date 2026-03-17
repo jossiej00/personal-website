@@ -6,6 +6,8 @@
 
 title: Personal Website
 description: Academic personal website
+url: "https://jossiej00.github.io"
+baseurl: "/personal-website"
 
 # ── Jekyll settings ─────────────────────────────────────────
 plugins:
