@@ -2,7 +2,7 @@
 layout: main
 ---
 
-{% assign p = site.profile %}
+{% assign p = site.data.profile %}
 
 <!-- ── Navigation ──────────────────────────────────────────── -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
@@ -145,12 +145,12 @@ layout: main
           <div class="about-interests-title">Research Interests</div>
           <div class="interests-list">
             <span class="interest-tag">Machine Learning</span>
-            <span class="interest-tag">Single-Cell Genomics</span>
-            <span class="interest-tag">Gene Regulatory Networks</span>
-            <span class="interest-tag">Causal Inference</span>
-            <span class="interest-tag">Spatial Transcriptomics</span>
-            <span class="interest-tag">Foundation Models</span>
-            <span class="interest-tag">Interpretability</span>
+            <span class="interest-tag">Large language Models</span>
+            <span class="interest-tag">Informaiton Theory</span>
+            <span class="interest-tag">Coding Theory</span>
+            <span class="interest-tag">Distributed Computing</span>
+            <span class="interest-tag">Gradient Code</span>
+            <span class="interest-tag">Quantization for Matrix Multiplication</span>
           </div>
         </div>
       </div>
@@ -191,8 +191,8 @@ layout: main
     </div>
 
     <!-- Papers grid -->
-    <div class="papers-grid">
-      {% for paper in site.research %}
+<div class="papers-grid">
+      {% for paper in site.data.research %}
       <article
         class="paper-card reveal{% if paper.featured %} featured{% endif %}"
         data-tags="{{ paper.tags | join: ',' }}"
@@ -207,10 +207,12 @@ layout: main
         <h3 class="paper-title">{{ paper.title }}</h3>
 
         <p class="paper-authors">
-          {% assign author_parts = paper.authors | split: "," %}
+          {% assign name_parts = p.name | split: " " %}
+          {% assign last_name = name_parts | last %}
+          {% assign author_parts = paper.authors | split: ", " %}
           {% for author in author_parts %}
             {% assign trimmed = author | strip %}
-            {% if trimmed contains "Your Name" %}
+            {% if trimmed contains last_name %}
               <strong class="author-highlight">{{ trimmed }}</strong>{% unless forloop.last %},{% endunless %}
             {% else %}
               {{ trimmed }}{% unless forloop.last %},{% endunless %}
@@ -343,12 +345,12 @@ layout: main
             <p>CV not yet uploaded.</p>
             <p>Place your CV at <code>assets/pdfs/cv.pdf</code> and update <code>cv_url</code> in <code>_data/profile.yml</code>.</p>
           </div>
-          <iframe
+          <embed
             id="cv-inline-iframe"
             data-src="{{ p.cv_url | relative_url }}"
-            title="Curriculum Vitae"
+            type="application/pdf"
             style="width:100%; height:700px; border:none; display:block;"
-          ></iframe>
+          />
         </div>
       </div>
     </div>

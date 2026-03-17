@@ -295,9 +295,7 @@ function initInlineCVFrame() {
 
   const src = frame.dataset.src;
   if (src && src !== 'null') {
-    frame.onload = () => {
-      if (loading) loading.style.display = 'none';
-    };
+    if (loading) loading.style.display = 'none';
     frame.src = src;
   } else {
     if (loading) loading.style.display = 'none';

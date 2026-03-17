@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ site.profile.name }} — {{ site.profile.title }}</title>
-  <meta name="description" content="{{ site.profile.bio_short | strip_newlines | strip }}" />
-  <meta name="author" content="{{ site.profile.name }}" />
+  <title>{{ site.data.profile.name }} — {{ site.data.profile.title }}</title>
+  <meta name="description" content="{{ site.data.profile.bio_short | strip_newlines | strip }}" />
+  <meta name="author" content="{{ site.data.profile.name }}" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="{{ site.profile.name }}" />
-  <meta property="og:description" content="{{ site.profile.bio_short | strip_newlines | strip }}" />
+  <meta property="og:title" content="{{ site.data.profile.name }}" />
+  <meta property="og:description" content="{{ site.data.profile.bio_short | strip_newlines | strip }}" />
   <meta property="og:type" content="website" />
 
   <!-- Preconnect for fonts -->
