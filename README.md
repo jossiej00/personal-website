@@ -1,15 +1,17 @@
 # Personal Academic Website
 
-A clean, elegant personal website for researchers and academics — built with Jekyll and hosted on GitHub Pages. Features in-browser PDF preview for research papers and CV, smooth animations, and a fully responsive design.
+A clean, elegant personal website for researchers and academics — built with Jekyll and hosted on GitHub Pages. Features in-browser PDF preview for research papers, slides, and CV, BibTeX export, a blog, and a fully responsive design.
 
 ---
 
 ## Features
 
 - **Effortless chic design** — warm neutral palette, Cormorant Garamond serif headings, Inter sans-serif body text
-- **In-browser PDF preview** — view research papers and CV without downloading, via a smooth modal overlay
 - **Research paper cards** — filterable grid with venue badge, status badge, abstract excerpt, and quick links
+- **In-browser PDF preview** — view papers, slides, and CV without downloading, via a smooth modal overlay
+- **BibTeX export** — download a clean `.bib` file for any paper with one click
 - **CV embed** — inline PDF viewer with macOS-style chrome + full-screen modal option
+- **Blog** — publish long-form posts in Markdown; drafts excluded from production builds
 - **Animated counters** — publication stats that count up on scroll
 - **Scroll-reveal animations** — elements fade in as you scroll down
 - **Active nav highlighting** — nav links highlight as you scroll through sections
@@ -34,13 +36,17 @@ bundle install
 bundle exec jekyll serve
 ```
 
-Open [http://localhost:4000](http://localhost:4000).
+Open [http://localhost:4000/personal-website/](http://localhost:4000/personal-website/).
+
+To preview draft blog posts locally:
+
+```bash
+bundle exec jekyll serve --drafts
+```
 
 ---
 
 ## Customisation Guide
-
-All content lives in two YAML files — no HTML editing needed for most changes.
 
 ### 1. Update your profile — `_data/profile.yml`
 
@@ -79,52 +85,66 @@ stats:
 
 **To add your photo:** place a square JPG/PNG at `assets/images/avatar.jpg`.
 
-### 2. Add your research papers — `_data/research.yml`
+### 2. Add research papers — `_bibliography/publications.bib`
 
-Each paper is a YAML list item:
+Papers are read from a standard BibTeX file. Add one entry per paper:
 
-```yaml
-- id: paper-2024-unique-id
-  title: "Full Paper Title"
-  authors: "Your Name, Co-Author A, Supervisor Name"
-  venue: "Nature Methods"           # journal or conference
-  year: 2024
-  abstract: >
-    Your abstract here. Can be multiple lines.
-  tags:
-    - "Deep Learning"
-    - "Genomics"
-  pdf_url: "/assets/pdfs/paper-2024-title.pdf"   # local PDF (optional)
-  doi: "https://doi.org/10.1038/..."              # DOI link (optional)
-  arxiv: "https://arxiv.org/abs/2401.XXXXX"       # arXiv link (optional)
-  code: "https://github.com/you/repo"             # code link (optional)
-  featured: true      # spans two columns in the grid
-  status: "published" # "published" or "preprint"
+```bibtex
+@inproceedings{yourkey2024,
+  title        = {Your Paper Title},
+  author       = {Last, First and Coauthor, Name},
+  booktitle    = {Conference Name},
+  year         = {2024},
+  abstract     = {Your abstract here.},
+  keywords     = {Tag One, Tag Two},
+  status       = {published},    % "published" or "preprint"
+  featured     = {true},         % spans two columns (optional)
+  doi          = {10.xxxx/xxx},  % DOI without https://doi.org/ prefix (optional)
+  arxiv        = {2401.XXXXX},   % arXiv ID without URL prefix (optional)
+  pdf          = {/assets/pdfs/yourkey2024.pdf},   % local PDF path (optional)
+  code         = {https://github.com/you/repo},    % code link (optional)
+  slides       = {/assets/pdfs/yourkey2024-slides.pdf},  % slides PDF (optional)
+}
 ```
 
-**Your name** is automatically bolded in the author list. The template matches any entry containing `"Your Name"` — replace this with your actual name throughout `_data/research.yml`.
+**Your name** is automatically bolded in the author list based on the `name` field in `profile.yml`.
 
-**To enable PDF preview:** upload PDF files to `assets/pdfs/` and set `pdf_url` to the path. If `pdf_url` is omitted, the preview modal shows a helpful placeholder.
+**PDF preview:** upload PDF files to `assets/pdfs/` and set the `pdf` field. If omitted, the preview modal shows a placeholder.
+
+**Slides preview:** set the `slides` field to a PDF path. The Slides button opens it in the same modal as the paper preview.
+
+**BibTeX export:** the Export BibTeX button downloads a `.bib` file for the paper. Custom fields (`status`, `pdf`, `slides`, `code`, `featured`) are excluded from the export automatically.
 
 ### 3. Add your CV
 
-Place your CV PDF at:
+Place your CV PDF at `assets/pdfs/cv.pdf`, then update `cv_url` and `cv_updated` in `_data/profile.yml`.
 
+### 4. Write blog posts
+
+**Published posts** go in `_posts/` with the filename format `YYYY-MM-DD-title.md`:
+
+```markdown
+---
+title: "Your Post Title"
+subtitle: "Optional subtitle"
+date: 2025-01-01
+tags: [Tag One, Tag Two]
+---
+
+Your content here in Markdown.
 ```
-assets/pdfs/cv.pdf
-```
 
-Then update `cv_url` and `cv_updated` in `_data/profile.yml`.
+**Draft posts** go in `_drafts/` (same format, no date in filename). They are excluded from production builds and only visible when running `jekyll serve --drafts`.
 
-### 4. Customise research interest tags
+### 5. Customise research interest tags
 
-Edit the `interests-list` section in `index.html` around line 150:
+Edit the `interests-list` section in `index.html`:
 
 ```html
 <span class="interest-tag">Your Interest</span>
 ```
 
-### 5. Customise colours
+### 6. Customise colours
 
 All colours are CSS custom properties in `assets/css/portfolio.css`:
 
@@ -143,11 +163,18 @@ All colours are CSS custom properties in `assets/css/portfolio.css`:
 
 ```
 personal-website/
+├── _bibliography/
+│   └── publications.bib   ← your research papers (BibTeX)
 ├── _data/
-│   ├── profile.yml        ← your personal info & social links
-│   └── research.yml       ← your publications list
+│   └── profile.yml        ← your personal info & social links
+├── _drafts/               ← unpublished blog posts
 ├── _layouts/
-│   └── main.html          ← site-wide HTML shell (nav, modals, scripts)
+│   ├── main.html          ← homepage shell (nav, modals, scripts)
+│   ├── blog-list.html     ← blog index layout
+│   └── blog-post.html     ← individual post layout
+├── _plugins/
+│   └── bibtex_reader.rb   ← reads publications.bib → site.data.research
+├── _posts/                ← published blog posts (YYYY-MM-DD-title.md)
 ├── assets/
 │   ├── css/
 │   │   └── portfolio.css  ← all styles (design system + components)
@@ -157,45 +184,25 @@ personal-website/
 │   │   └── avatar.jpg     ← your photo (add this)
 │   └── pdfs/
 │       ├── cv.pdf          ← your CV (add this)
-│       └── paper-*.pdf     ← paper PDFs (add these)
-├── index.html             ← main page (Liquid template, reads from _data/)
-├── _config.yml            ← Jekyll config
+│       └── *.pdf           ← paper and slides PDFs (add these)
+├── blog/
+│   └── index.html         ← blog listing page
+├── index.html             ← main page (Liquid template)
+├── _config.yml            ← Jekyll config (url, baseurl, plugins)
 └── Gemfile                ← Ruby dependencies
 ```
 
 ---
 
-## PDF Preview — How It Works
-
-### Research papers
-Each paper card has a **Preview** button. Clicking it opens a modal split into:
-- **Left panel** — title, authors, abstract, tags, and external links
-- **Right panel** — the PDF embedded in an `<iframe>` (browsers render PDFs natively)
-
-If no local PDF is provided, the panel shows a friendly placeholder with instructions.
-
-### CV
-The CV section embeds an inline `<iframe>` viewer directly on the page (styled with a macOS-like chrome). An **Open Full Preview** button opens a full-screen modal version. A **Download PDF** button is available as a secondary option.
-
----
-
 ## Deployment (GitHub Pages)
 
-1. Push this repository to GitHub as `username.github.io`
-2. Go to **Settings → Pages** and set source to the `master` branch
-3. Your site will be live at `https://username.github.io`
+This site uses a GitHub Actions workflow for deployment. On every push to `master`, Jekyll is built and deployed automatically.
 
-For a custom domain, add a `CNAME` file to the repo root containing your domain name, then configure DNS with your registrar.
+1. Push the repository to GitHub
+2. Go to **Settings → Pages** and set the source to **GitHub Actions**
+3. Your site will be live at `https://username.github.io/personal-website/`
 
----
-
-## Local Build Without Ruby
-
-If you prefer not to install Ruby, you can preview using Docker:
-
-```bash
-docker run --rm -v "$PWD:/srv/jekyll" -p 4000:4000 jekyll/jekyll jekyll serve
-```
+> **Note:** The `baseurl` in `_config.yml` is set to `/personal-website`. If you rename the repository, update `baseurl` and `url` to match.
 
 ---
 

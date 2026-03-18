@@ -1,7 +1,7 @@
 name: "Yuxin (Jossie) Jiang"
 title: "PhD Candidate · Electrical and Computer Engineering"
 tagline: "Exploring the intersection of machine learning and information theory to decode life's blueprint."
-institution: "Department of Electrical and Computer Engineering, University of British Columbia"
+institution: "University of British Columbia"
 location: "Vancouver, BC"
 email: "yjiang28@ece.ubc.ca"
 avatar: "/assets/images/avatar.JPG"
@@ -9,7 +9,7 @@ avatar: "/assets/images/avatar.JPG"
 bio: >
   I am a PhD researcher at the intersection of machine learning and information theory.
   My work focuses on developing scalable computational methods to understand
-  gene regulatory networks and their role in complex diseases. Previously, I
+  gene regulatory networks and their role in distributed systems. Previously, I
   completed my BSc in Statistics at University of British Columbia.
 bio_short: >
   PhD researcher building ML methods for information theory. Passionate about open science,
