@@ -370,6 +370,16 @@ function getIcon(name) {
   return icons[name] || '';
 }
 
+/* ── Abstract Expand ──────────────────────────────────────── */
+function initAbstractExpand() {
+  document.addEventListener('click', e => {
+    const el = e.target.closest('.paper-abstract');
+    if (!el) return;
+    const expanded = el.classList.toggle('expanded');
+    el.title = expanded ? 'Click to collapse' : 'Click to expand';
+  });
+}
+
 /* ── BibTeX Export ────────────────────────────────────────── */
 function initBibtexExport() {
   document.addEventListener('click', e => {
@@ -398,4 +408,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initCounters();
   initBibtexExport();
+  initAbstractExpand();
 });

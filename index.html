@@ -163,8 +163,8 @@ layout: main
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="published">Published</button>
       <button class="filter-btn" data-filter="preprint">Preprints</button>
-      <button class="filter-btn" data-filter="Deep Learning">Deep Learning</button>
-      <button class="filter-btn" data-filter="Genomics">Genomics</button>
+      <!-- <button class="filter-btn" data-filter="Deep Learning">Deep Learning</button> -->
+      <!-- <button class="filter-btn" data-filter="Genomics">Genomics</button> -->
     </div>
 
     <!-- Papers grid -->
@@ -197,7 +197,7 @@ layout: main
           {% endfor %}
         </p>
 
-        <p class="paper-abstract">{{ paper.abstract | strip_newlines | truncatewords: 48 }}</p>
+        <p class="paper-abstract" title="Click to expand">{{ paper.abstract | strip_newlines }}</p>
 
         <div class="paper-tags">
           {% for tag in paper.tags %}
@@ -273,7 +273,7 @@ layout: main
   <div class="section-inner">
     <div class="section-header reveal">
       <div class="section-label">Curriculum Vitae</div>
-      <h2 class="section-title">Academic <em>Profile</em></h2>
+      <h2 class="section-title">Professional <em>Profile</em></h2>
       <p class="section-subtitle">
         Browse my full CV below.
       </p>

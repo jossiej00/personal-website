@@ -10,3 +10,14 @@ published: true
 ---
 
 This is one of the topics included in my Ph.D. thesis.
+
+```{python}
+x = mean(x)
+```
+
+$$
+e^{i\pi} + 1 = 0
+$$
+
+
+
